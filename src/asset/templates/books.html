@@ -1,0 +1,44 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel tour-1">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <h2 class="font-light m-b-xs">
+                Books
+            </h2>
+        </div>
+    </div>
+</div> <!-- END: normalheader -->
+
+<div class="content animate-panel">
+    <div class="row" >
+      <div style="" class="col-lg-12">
+        <div class="hpanel">
+            <div class="panel-body">
+              <div class="form-group"><label class="col-sm-2 control-label">Search</label>
+                    <div class="col-sm-10"><input class="form-control" type="text" name="query" placeholder="ISBN" ng-model="query"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div style="" class="col-lg-3" ng-repeat="book in books | filter:query | limitTo:20 | orderBy:book:reverse">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    <a href="index.html#/details/{{book}}">{{book}}</a>
+                </div>
+                <div class="panel-body">
+                    <a href="index.html#/details/{{book}}">
+                      <img src="http://covers.openlibrary.org/b/isbn/{{book}}-M.jpg" class="text-center">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

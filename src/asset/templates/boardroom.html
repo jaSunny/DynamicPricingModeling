@@ -1,0 +1,334 @@
+<div class="normalheader transition animated fadeIn">
+    <div class="hpanel tour-1">
+        <div class="panel-body">
+            <a class="small-header-action" href="">
+                <div class="clip-header">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+            </a>
+            <h2 class="font-light m-b-xs">
+                Boardroom
+            </h2>
+            <div class="pull-right">
+              <button ng-click="getGraphData()" type="button" ata-style="zoom-in"
+                      class="btn btn-sm btn-outline btn-success pull-right">
+                      <i class="fa fa-refresh" aria-hidden="true"></i>Apply Changes
+              </button>
+            </div>
+        </div>
+    </div>
+</div> <!-- END: normalheader -->
+
+<div class="content animate-panel">
+    <div class="row">
+      <div style="" class="col-lg-3">
+          <div class="hpanel">
+              <div class="panel-heading">
+                  <div class="panel-tools">
+                      <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                      <a class="closebox"><i class="fa fa-times"></i></a>
+                  </div>
+                  General Settings
+              </div>
+              <div class="panel-body">
+                <div ng-show="isbn_choosen">
+                   <center>
+                     <a href="index.html#/details/{{book}}">
+                       <img src="http://covers.openlibrary.org/b/isbn/{{isbn_choosen}}-M.jpg" class="text-center">
+                     </a>
+                   </center>
+                   <br><br>
+                </div>
+                <div class="form-horizontal">
+                      <div class="form-group"><label class="col-sm-5 control-label">Start</label>
+                          <div class="col-sm-7">
+                            <div class="input-group bootstrap-touchspin">
+                              <input style="display: block;" class="form-control"
+                                     ng-model="offset" type="number">
+                            </div>
+                          </div>
+                      </div>
+                      <div class="form-group"><label class="col-sm-5 control-label">To</label>
+                          <div class="col-sm-7">
+                            <div class="input-group bootstrap-touchspin">
+                              <input style="display: block;" class="form-control"
+                                     ng-model="to" type="number">
+                            </div>
+                          </div>
+                      </div>
+                      <div class="form-group"><label class="col-sm-5 control-label">Competitors</label>
+                          <div class="col-sm-7">
+                            <div class="input-group bootstrap-touchspin">
+                              <input style="display: block;" class="form-control"
+                                     ng-model="amountOfCompetitors" type="number">
+                            </div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-5 control-label">#Books</label>
+                          <div class="col-sm-7">
+                            <input class="form-control" type="number"
+                                  ng-model="amounOfBooksForSimulation">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-5 control-label">Skipped Steps</label>
+                          <div class="col-sm-7">
+                            <input class="form-control" type="number"
+                                  ng-model="stepsSkipped">
+                          </div>
+                      </div>
+                      <!--<button type="button" ata-style="zoom-in"
+                              class="btn btn-sm btn-outline btn-success pull-right"
+                              ng-click="getGraphData()">Apply
+                      </button>-->
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div style="" class="col-lg-3">
+              <div class="hpanel">
+                  <div class="panel-heading">
+                      <div class="panel-tools">
+                          <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                          <a class="closebox"><i class="fa fa-times"></i></a>
+                      </div>
+                      Overwriting all ISBN records
+                  </div>
+                  <div class="panel-body">
+                    <center><small>0 values disable the option.</small></center>
+                    <br><br>
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-6 control-label">My Price</label>
+                        <div class="col-sm-6">
+                          <div class="input-group bootstrap-touchspin">
+                            <input style="display: block;" class="form-control"
+                                   ng-model="myprice" type="number">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-6 control-label">Amount</label>
+                          <div class="col-sm-6">
+                            <input class="form-control" type="number"
+                                  ng-model="myamount" >
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-6 control-label">To be Sold</label>
+                          <div class="col-sm-6">
+                            <input class="form-control" type="number"
+                                  ng-model="percentageOfBooksToBeSold">%
+                          </div>
+                      </div>
+                      <!--<button type="button" ata-style="zoom-in"
+                              class="btn btn-sm btn-outline btn-success pull-right"
+                              ng-click="getGraphData()">Apply
+                      </button>-->
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div style="" class="col-lg-3">
+          <div class="hpanel">
+              <div class="panel-heading">
+                  <div class="panel-tools">
+                      <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                      <a class="closebox"><i class="fa fa-times"></i></a>
+                  </div>
+                  Competitor Settings
+              </div>
+              <div class="panel-body form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                      <select class="form-control m-b" ng-model="isbn_choosen" ng-change="becomeSpecific(isbn_choosen)">
+                        <option value="">Select ISBN</option>
+                        <option ng-repeat="book in bookData['total']['bookIds']" value="{{book}}">{{book}}</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                      <select class="form-control m-b" ng-model="competitor_choosen">
+                        <option value="">Select Competitor</option>
+                        <option ng-repeat="competitor in datalabels track by $index" value="{{$index}}">{{competitor}}</option>
+                      </select>
+                    </div>
+                </div>
+
+                <div ng-show="competitor_choosen">
+                  <div ng-show="isbn_choosen">
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Price</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['competitors'][competitor_choosen].price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Feedback</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['competitors'][competitor_choosen].feedback">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Shipping</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['competitors'][competitor_choosen].shipping">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Condition</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['competitors'][competitor_choosen].condition">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Quantity</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['competitors'][competitor_choosen].quantity">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Rating</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['competitors'][competitor_choosen].rating">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-5 control-label">Is Prime</label>
+                        <div class="col-sm-7">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['competitors'][competitor_choosen].is_prime">
+                        </div>
+                    </div>
+                    <button type="button" ata-style="zoom-in"
+                            class="btn btn-sm btn-outline btn-info pull-right"
+                            ng-click="updateBookDataModel()">Update
+                    </button>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div style="" class="col-lg-3">
+          <div class="hpanel">
+              <div class="panel-heading">
+                  <div class="panel-tools">
+                      <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                      <a class="closebox"><i class="fa fa-times"></i></a>
+                  </div>
+                  My Settings
+              </div>
+              <div class="panel-body form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                      <select class="form-control m-b" ng-model="isbn_choosen" ng-change="becomeSpecific(isbn_choosen)">
+                        <option value="">Select ISBN</option>
+                        <option ng-repeat="book in bookData['total']['bookIds']" value="{{book}}">{{book}}</option>
+                      </select>
+                    </div>
+                </div>
+                <div ng-show="isbn_choosen">
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">My Price</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" type="number"
+                                ng-model="bookData[''+isbn_choosen]['Self']['price']">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label">My Amount</label>
+                        <div class="col-sm-6">
+                          <input class="form-control" type="text"
+                                ng-model="bookData[''+isbn_choosen]['Self']['amount']">
+                        </div>
+                    </div>
+                    <button type="button" ata-style="zoom-in"
+                            class="btn btn-sm btn-outline btn-info pull-right"
+                            ng-click="updateBookDataModel()">Update
+                    </button>
+                </div>
+            </div>
+        </div>
+      </div>
+      <!--<div style="" class="col-lg-3" ng-show="isbn_choosen">-->
+      <div style="" class="col-lg-3" ng-show="false">
+        <div class="hpanel">
+            <div class="panel-heading">
+                <div class="panel-tools">
+                    <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                    <a class="closebox"><i class="fa fa-times"></i></a>
+                </div>
+                Item: {{isbn_choosen}}
+            </div>
+            <div class="panel-body text-center h-200">
+              <a href="index.html#/details/{{book}}">
+                <img src="http://covers.openlibrary.org/b/isbn/{{isbn_choosen}}-M.jpg" class="text-center">
+              </a>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div style="" class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    Profit over Time
+                </div>
+                <div class="panel-body">
+                    <div id="lineChart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" ng-show="isbn_choosen">
+        <div style="" class="col-lg-12">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div class="panel-tools">
+                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                        <a class="closebox"><i class="fa fa-times"></i></a>
+                    </div>
+                    Profit over Time for {{isbn_choosen}}
+                </div>
+                <div class="panel-body">
+                    <div id="lineChartIsbn"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Loading Book Details -->
+    <div class="modal fade hmodal-success " id="loadingModal"
+         tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Calculating..</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                      <center>
+                        <img ng-src="/asset/images/loading.gif" class="text-center">
+                      </center>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
